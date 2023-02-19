@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer";
 
 (async () => {
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
   await page.goto("http://books.toscrape.com/");
@@ -22,6 +22,14 @@ import puppeteer from "puppeteer";
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
   };
 
+  // get the whole page's html
+  // const html = await page.content();
+  // console.log(html);
+
+  // download as pdf
+  await page.emulateMediaType("screen");
+  await page.pdf({ path: "./test1.pdf" });
+
   let bookData = {};
   for (let url of urlsToScrape) {
     await page.goto(url);
@@ -38,5 +46,5 @@ import puppeteer from "puppeteer";
     await sleep(5000);
   }
 
-  console.log(bookData);
+  browser.close();
 })();
