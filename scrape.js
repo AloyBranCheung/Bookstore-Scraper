@@ -33,15 +33,15 @@ import puppeteer from "puppeteer";
   let bookData = {};
   for (let url of urlsToScrape) {
     await page.goto(url);
-    const { title, price, numberofStocks } = await page.evaluate(() => {
+    const { title, price, numberOfStocks } = await page.evaluate(() => {
       const productMain = document.querySelector(".product_main");
       const title = productMain.querySelector("h1").innerText;
       const price = productMain.querySelector(".price_color").innerText;
       const stockString = productMain.querySelector(".instock").innerText;
-      const numberofStocks = stockString.match(/\d+/g);
-      return { title, price, numberofStocks };
+      const numberOfStocks = stockString.match(/\d+/g);
+      return { title, price, numberOfStocks };
     });
-    bookData[title] = { price, numberofStocks };
+    bookData[title] = { price, numberOfStocks };
     console.log(bookData);
     await sleep(5000);
   }
