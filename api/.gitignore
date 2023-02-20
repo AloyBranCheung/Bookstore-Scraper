@@ -131,3 +131,6 @@ dist
 
 # puppeteer 
 .pdf
+
+# typescript
+/build
